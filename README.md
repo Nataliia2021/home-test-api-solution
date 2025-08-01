@@ -1,52 +1,41 @@
-# **Take Home API Test**
+# Home Test API Solution
 
-### Must have before start
-1. Github account
-2. Docker
+This project contains Karate BDD tests for the demo API running at `http://localhost:3100/api`.
 
-### Steps
-1. Pull the docker image containing the api
-`docker pull automaticbytes/demo-app`
-2. Run the image `docker run -p 3100:3100 automaticbytes/demo-app`
-3. Verify the api is up and set it as the base url for the tests `http://localhost:3100/api`
-4. Create in your personal github a public repository (name it for instance home-test-api)
-5. Code requested exercises, commit and push your code and send the repository link according to the instructions given by the recruiter who contacted you.
-6. Forking this repository is not needed.
+## Prerequisites
 
-### General requisites for submission
-1. The exercise must be submitted using Karate (BDD testing framework for Java) in a Maven project.
-2. Add a README.md with the instructions to build and run your project.
-3. Add a Gherkin file/s describing the tested feature/s.
+- Java 17 or higher installed
+- Maven installed
+- Docker installed and running
 
-### Test Scenarios
+## Setup and Running the API Server
 
-1. Get all menu items
-    * Using: GET /api/inventory
-    * Validate that the response contains at least 9 items
-    * Validate that all the items in the response contains the following data: "id","name","price","image"
+1. Pull and run the demo API Docker image:
 
-2. Filter by id 
-    * Using: GET /api/inventory/filter?id=3
-    * Validate that the response contains the correct id,name,price and image for "Baked Rolls x 8"
+```bash
+docker pull automaticbytes/demo-app
+docker run -p 3100:3100 automaticbytes/demo-app
 
-3. Add item for non existent id
-    * Using POST /api/inventory/add with following body: `{"id": "10","name": "Hawaiian","image": "hawaiian.png","price": "$14"}`
-    * Validate response status code 200
-    
-4. Add item for existent id
-    * Using POST /api/inventory/add with following body: `{"id": "10","name": "Hawaiian","image": "hawaiian.png","price": "$14"}`
-    * Validate response status code 400
+ 
+2.Verify the API is running at:
+http://localhost:3100/api
 
-5. Try to add item with missing information
-    * Using POST /api/inventory/add with some of the data missing from the json body (for instance without id)
-    * Validate response status code 400
-    * Validate response contains the message "Not all requirements are met"
-  
-6. Validate recent added item is present in the inventory
-    * Using: GET /api/inventory
-    * Validate that the item added in the step 3 is present and with the correct data
+3.From the project root directory (where pom.xml is located), execute:
+mvn test
 
-      
-  
-   
-   
+4.Project Structure
+├── README.md
+├── pom.xml
+└── src
+    └── test
+        └── java
+            └── features
+                ├── add-item.feature
+                └── inventory.feature
+
+
+
+Features
+inventory.feature: Contains tests to get all menu items, filter items by ID, add items with validations for existing IDs or missing fields.
+
+add-item.feature: Adds an item with a dynamically generated ID and returns the ID for use in other tests.

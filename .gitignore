@@ -1,0 +1,9 @@
+# Ignore everything inside target folder
+target/**
+
+# But do not ignore these folders so git can see inside
+!target/
+!target/karate-reports/
+
+# Except the specific file karate-summary.html inside karate-reports
+!target/karate-reports/karate-summary.html
