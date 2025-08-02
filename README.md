@@ -8,17 +8,25 @@ This project contains Karate BDD tests for the demo API running at `http://local
 - Maven installed
 - Docker installed and running
 
+```bash
+brew install openjdk@17
+export JAVA_HOME=$(/usr/libexec/java_home -v17)
+export PATH=$JAVA_HOME/bin:$PATH
+
 ## Setup and Running the API Server
 
 1. Pull and run the demo API Docker image:
 
-```bash
 docker pull automaticbytes/demo-app
 docker run -p 3100:3100 automaticbytes/demo-app
 
  
 2.Verify the API is running at:
 http://localhost:3100/api
+
+
+3. Run tests
+mvn test
 
 3.From the project root directory (where pom.xml is located), execute:
 mvn test
